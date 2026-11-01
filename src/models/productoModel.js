@@ -42,6 +42,22 @@ class Producto {
         db.query(sql, [id], callback);
     }
 
+    // CONSULTAR LAS CATEGORÍAS DE LOS PRODUCTOS
+    getCategorias(callback) {
+        const sql = `
+            SELECT
+                categoria,
+                COUNT(*) AS total_productos
+            FROM productos
+            WHERE categoria IS NOT NULL
+              AND TRIM(categoria) <> ''
+            GROUP BY categoria
+            ORDER BY categoria ASC
+        `;
+
+        db.query(sql, callback);
+    }
+
     // CREAR UN PRODUCTO
     crearProducto(datos, callback) {
         const sql = `

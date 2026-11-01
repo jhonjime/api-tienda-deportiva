@@ -35,6 +35,20 @@ module.exports = {
         });
     },
 
+    // CONSULTAR CATEGORÍAS DE LOS PRODUCTOS
+    getCategorias: (req, res) => {
+        productoModel.getCategorias((err, result) => {
+            if (err) {
+                return res.status(500).json({ error: err.message });
+            }
+
+            res.status(200).json({
+                total: result.length,
+                data: result
+            });
+        });
+    },
+
     // CREAR PRODUCTO
     crearProducto: (req, res) => {
         const datos = req.body || {};
